@@ -28,7 +28,7 @@ var server = net.createServer(function (socket) {
     broadcast(clientName, message);
 
     // Log it to the server output
-    process.stdout.write(message);
+    console.log(message);
   });
 
   // When client leaves
@@ -36,7 +36,7 @@ var server = net.createServer(function (socket) {
     var message = clientName + " left this chat\n";
 
     // Log it to the server output
-    process.stdout.write(message);
+    console.log(message);
 
     // Remove client from socket array
     removeSocket(socket);
