@@ -7,7 +7,8 @@ const server = net.createServer((socket) => {
   // Increment
   guestId++;
 
-  socket.nickname = "Guest" + guestId;
+  socket.nickname = guestId;
+  socket.firstMessage = true;
   const clientName = socket.nickname;
 
   sockets.push(socket);
@@ -16,7 +17,7 @@ const server = net.createServer((socket) => {
   console.log(clientName + " joined this chat.");
 
   // Welcome user to the socket
-  socket.write("Welcome to chat!\n");
+  socket.write("Welcome to chat! Please insert your username\n");
 
   // multicast to others excluding this socket
   multicast(clientName, clientName + " joined this chat.\n");
@@ -52,7 +53,7 @@ const server = net.createServer((socket) => {
 });
 
 // multicast to others, excluding the sender
-const multicast = (from, message)=> {
+const multicast = (from, message) => {
   // If there are no sockets, then don't multicast any messages
   if (sockets.length === 0) {
     process.stdout.write("Everyone left the chat");
@@ -62,7 +63,12 @@ const multicast = (from, message)=> {
   // If there are clients remaining then multicast message
   sockets.forEach((socket, index, array) => {
     // Dont send any messages to the sender
-    if (socket.nickname === from) return;
+    if (socket.nickname === from && !socket.firstMessage) return;
+    if (socket.nickname === from && socket.firstMessage) {
+      socket.nickname = message;
+      return;
+    };
+
 
     socket.write(message);
   });
