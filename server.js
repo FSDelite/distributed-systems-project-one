@@ -16,7 +16,7 @@ var server = net.createServer(function (socket) {
   console.log(clientName + " joined this chat.");
 
   // Welcome user to the socket
-  socket.write("Welcome to telnet chat!\n");
+  socket.write("Welcome to chat!\n");
 
   // Broadcast to others excluding this socket
   broadcast(clientName, clientName + " joined this chat.\n");
@@ -78,8 +78,8 @@ server.on("error", function (error) {
   console.log("So we got problems!", error.message);
 });
 
-// Listen for a port to telnet to
-// then in the terminal just run 'telnet localhost [port]'
+// Listen for a port to
+// then in the terminal just run 'localhost [port]'
 server.listen(port, function () {
   console.log("Server listening at http://localhost:" + port);
 });
