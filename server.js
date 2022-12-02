@@ -1,14 +1,14 @@
-var net = require("net");
-var sockets = [];
-var port = 8000;
-var guestId = 0;
+const net = require("net");
+const sockets = [];
+const port = 8000;
+const guestId = 0;
 
-var server = net.createServer(function (socket) {
+const server = net.createServer(function (socket) {
   // Increment
   guestId++;
 
   socket.nickname = "Guest" + guestId;
-  var clientName = socket.nickname;
+  const clientName = socket.nickname;
 
   sockets.push(socket);
 
@@ -23,7 +23,7 @@ var server = net.createServer(function (socket) {
 
   // When client sends data
   socket.on("data", function (data) {
-    var message = clientName + "> " + data.toString();
+    const message = clientName + "> " + data.toString();
 
     broadcast(clientName, message);
 
@@ -33,7 +33,7 @@ var server = net.createServer(function (socket) {
 
   // When client leaves
   socket.on("end", function () {
-    var message = clientName + " left this chat\n";
+    const message = clientName + " left this chat\n";
 
     // Log it to the server output
     console.log(message);
