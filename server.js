@@ -10,8 +10,6 @@ const server = net.createServer((socket) => {
 
   socket.nickname = guestId;
   socket.firstMessage = true;
-  // socket.id = guestId;
-  // let socket.nickname = socket.nickname;
 
   sockets.push(socket);
 
