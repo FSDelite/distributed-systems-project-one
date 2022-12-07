@@ -61,14 +61,16 @@ const multicast = (from, message) => {
   }
 
   if (typeof from == "number") {
-    if (
-      sockets[from - 1].firstMessage &&
-      !message.includes("joined this chat")
-    ) {
-      sockets[from - 1].nickname = message.split(":")[1].trim();
-      sockets[from - 1].firstMessage = false;
+    if (sockets[from - 1]) {
+      if (
+        sockets[from - 1].firstMessage &&
+        !message.includes("joined this chat")
+      ) {
+        sockets[from - 1].nickname = message.split(":")[1].trim();
+        sockets[from - 1].firstMessage = false;
 
-      return;
+        return;
+      }
     }
   }
 
