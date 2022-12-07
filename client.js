@@ -5,7 +5,7 @@ const readline = require("readline").createInterface({
 });
 
 var client = new net.Socket();
-client.connect(8000, "127.0.0.1", function () {
+client.connect(8000, "localhost", function () {
   console.log("Connected");
 });
 
